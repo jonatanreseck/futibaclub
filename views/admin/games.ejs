@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Futiba Club - Fullstack Academy - DevPleno</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/futiba-interno.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-light green fixed-top scrolling-navbar">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="/img-futiba-club/logo.png" height="30" alt="Futiba Club">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+                    <% include ../elements/menu-itens %>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <h2>Gerenciamento de Jogos</h2>
+            </div>
+            <div>
+                <form class="row" method="post">
+                    <div class="md-form">
+                        <i class="fa fa-user prefix grey-text"></i>
+                        <input type="text" id="orangeForm-name" class="form-control" name="team_a">
+                        <label for="orangeForm-name">Time A</label>
+                    </div>
+                    <div class="md-form">
+                        <i class="fa fa-envelope prefix grey-text"></i>
+                        <input type="text" id="orangeForm-email" class="form-control" name="team_b">
+                        <label for="orangeForm-email">Time B</label>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-deep-orange">Criar Jogo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <form method="post" action="/admin/games/results">
+                <table class="table table-striped" style="width:200px;">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Time A</th>
+                                <th></th>
+                                <th>Jogos</th>
+                                <th></th>
+                                <th>Time B</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% games.forEach( game => { %>
+                            <tr>
+                                <td style="width:50px;"><%= game.id %></td>
+                                <td style="width:300px;">
+                                    <%= game.team_a %>
+                                </td>
+                                <td style="width:50px;">
+                                    <input name="team_<%= game.id %>[a]"> 
+                                </td>
+                                <td style="width:50px;">
+                                        vs
+                                </td>
+                                <td style="width:50px;">
+                                    <input name="team_<%= game.id %>[b]">
+                                </td>
+                                <td style="width:300px;">
+                                    <%= game.team_b %>
+                                </td>
+                                <td style="width:200px;"> 
+                                    <a href="/admin/games/delete/<%= game.id %>">
+                                        Excluir</a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                    <input type="submit" value="Informar resultados">
+                    </form>
+
+    <% include ../elements/footer %>
